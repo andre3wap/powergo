@@ -8,9 +8,12 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.animation.AlphaAnimation;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 
 /**
@@ -30,6 +33,10 @@ public class OverLay extends AppCompatActivity {
 
         LayoutInflater inflater = (LayoutInflater) mcontext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.view, null);
+
+        final TextView tv = (TextView)view.findViewById(R.id.textView);
+        tv.setVisibility(View.GONE);
+
         final WindowManager manager = (WindowManager) mcontext.getSystemService(Context.WINDOW_SERVICE);
 
 
@@ -48,13 +55,24 @@ public class OverLay extends AppCompatActivity {
         manager.addView(view, params);
         final Intent intent=new Intent(mcontext, OService.class);
 
-        view.setOnClickListener(new View.OnClickListener() {
+        tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 System.out.println("Clicked");
-
                 mcontext.stopService(intent);
                 manager.removeView(v);
+            }
+        });
+
+        view.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                tv.setVisibility(View.VISIBLE);
+                 AlphaAnimation fadeOut = new AlphaAnimation( 1.0f , 0.0f ) ;
+                tv.startAnimation(fadeOut);
+                fadeOut.setDuration(2000);
+                fadeOut.setFillAfter(true);
+                return false;
             }
         });
     }
