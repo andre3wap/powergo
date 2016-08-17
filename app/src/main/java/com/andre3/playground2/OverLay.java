@@ -12,6 +12,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.AlphaAnimation;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -35,6 +36,13 @@ public class OverLay extends AppCompatActivity {
         View view = inflater.inflate(R.layout.view, null);
 
         final TextView tv = (TextView)view.findViewById(R.id.textView);
+
+        Button btn1, btn2, btn3, btn4, btn5, btn6;
+
+
+
+
+
         tv.setVisibility(View.GONE);
 
         final WindowManager manager = (WindowManager) mcontext.getSystemService(Context.WINDOW_SERVICE);
